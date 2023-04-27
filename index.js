@@ -26,16 +26,51 @@ class Word {
   }
 
   // implement the guessLetter function:
-  // guessLetter(letter) {}
+  guessLetter(letter) {
+    this.letter = letter
+    let wordArray = this.word.split('')
+    let displayArray = this.displayWord.split('')
+    let correct = false
+    for (var i=0; i < wordArray.length; i++){
+    if (wordArray[i] == letter){
+      correct = true
+      this.correctLetters.push(letter)
+      displayArray[i] = letter
+      this.displayWord = displayArray.join('')
+    } 
+  }
+  if (correct !== true){
+    this.remainingGuesses--
+    this.incorrectLetters.push(letter)
+  }
+  }
 
   // implement the updateScreen function:
-  // updateScreen() {}
+  updateScreen() {
+    document.getElementById("remaining-guesses").textContent = this.remainingGuesses
+    document.getElementById("incorrect-letters").textContent = this.incorrectLetters
+    document.getElementById("word-to-guess").textContent = this.displayWord
+  }
 
   // implement the isGameOver function:
-  // isGameOver() {}
+  isGameOver() {
+    if(this.word === this.displayWord || this.remainingGuesses <= 0){
+      return true
+    }else{
+      return false
+  }
+  }
 
   // implement the getWinOrLoss function:
-  // getWinOrLoss() {}
+  getWinOrLoss() {
+    if (this.word === this.displayWord & this.remainingGuesses > 0){
+      return "win"
+    }else if (this.word !== this.displayWord & this.remainingGuesses <= 0){
+      return "loss"
+    }else{
+      return null
+    }
+  }
 }
 
 function newGame() {
